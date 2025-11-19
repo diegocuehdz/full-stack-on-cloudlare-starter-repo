@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 
 import { cloudflareInfoSchema } from '@repo/data-ops/zod-schema/links';
+import { type LinkClickMessageType } from '@repo/data-ops/zod-schema/queue';
 
 import { getDestinationForCountry, getRoutingDestinations } from '@/helpers/route-ops';
 
@@ -17,6 +18,20 @@ App.get('/:id', async (c) => {
 
 	const headers = cfHeader.data;
 	const destination = getDestinationForCountry(linkFromDb, headers.country)
+
+	const queueCall = c.env.QUEUE.send({
+		type: "LINK_CLICK",
+		data: {
+			id: id,
+			country: headers.country,
+			destination: destination,
+			accountId: linkFromDb.accountId,
+			latitude: headers.latitude,
+			longitude: headers.longitude,
+			timestamp: new Date().toISOString(),
+		}
+	} satisfies LinkClickMessageType)
+	c.executionCtx.waitUntil(queueCall);
 
 	return c.redirect(destination);
 })
