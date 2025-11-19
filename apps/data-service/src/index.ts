@@ -1,7 +1,10 @@
 import { WorkerEntrypoint } from 'cloudflare:workers';
 
-import { App } from './hono/app';
 import { initDatabase } from '@repo/data-ops/database';
+import { QueueMessageSchema } from '@repo/data-ops/zod-schema/queue';
+
+import { App } from './hono/app';
+import { handleLinkClick } from './queue-handlers/link-clicks';
 
 export default class DataService extends WorkerEntrypoint<Env> {
 
@@ -16,7 +19,20 @@ export default class DataService extends WorkerEntrypoint<Env> {
 
 	async queue(batch: MessageBatch<unknown>) {
 		for (const message of batch.messages) {
-			console.log('Processing message:', message.body);
+			const parsedEvent = QueueMessageSchema.safeParse(message.body);
+			if (!parsedEvent.success) {
+				console.error(parsedEvent.error);
+				continue;
+			}
+
+			const event = parsedEvent.data;
+			switch (event.type) {
+			case "LINK_CLICK":
+				await handleLinkClick(this.env, event);
+				break;
+			default:
+				console.warn("Unknown event type:", event.type);
+			}
 		}
 	}
 }
