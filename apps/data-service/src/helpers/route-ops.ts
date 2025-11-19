@@ -8,7 +8,7 @@ async function getLinkInfoFromKv(env: Env, id: string) {
 	try {
 		const parsedLinkInfo = JSON.parse(linkInfo);
 		return linkSchema.parse(parsedLinkInfo);
-	} catch (error) {
+	} catch {
 		return null;
 	}
 }
