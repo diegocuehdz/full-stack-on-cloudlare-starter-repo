@@ -28,8 +28,7 @@ export default class DataService extends WorkerEntrypoint<Env> {
 			const event = parsedEvent.data;
 			switch (event.type) {
 			case "LINK_CLICK":
-				//await handleLinkClick(this.env, event);
-				throw new Error('TEST ERROR');
+				await handleLinkClick(this.env, event);
 				break;
 			default:
 				console.warn("Unknown event type:", event.type);
