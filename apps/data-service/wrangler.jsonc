@@ -15,5 +15,10 @@
     	"binding": "DB",
     	"database_id": "50745e40-052a-44cd-9225-493ba0f9dfdf",
     	"remote": true
-  	}]
+  	}],
+	"kv_namespaces": [{
+		"binding": "CACHE",
+		"id": "3ee76b3ded9f419ab4859c740f10c732",
+		"remote": true
+	}]
 }
