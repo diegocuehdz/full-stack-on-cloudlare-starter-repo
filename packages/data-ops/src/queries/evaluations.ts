@@ -1,10 +1,10 @@
 import { and, desc, eq, gt } from "drizzle-orm";
-import { v4 as uuidv4 } from "uuid";
 
 import { destinationEvaluations } from "@/drizzle-out/schema";
 import { getDb } from "@/db/database";
 
 export async function addEvaluation(data: {
+    evaluationId: string;
     linkId: string;
     accountId: string;
     destinationUrl: string;
@@ -12,17 +12,17 @@ export async function addEvaluation(data: {
     reason: string;
 }) {
     const db = getDb();
-    const id = uuidv4();
+
     await db.insert(destinationEvaluations).values({
-        id: id,
+        id: data.evaluationId,
         linkId: data.linkId,
         accountId: data.accountId,
         destinationUrl: data.destinationUrl,
         status: data.status,
         reason: data.reason,
     });
-    return id;
 }
+
 
 export async function getNotAvailableEvaluations(accountId: string) {
     const db = getDb();
