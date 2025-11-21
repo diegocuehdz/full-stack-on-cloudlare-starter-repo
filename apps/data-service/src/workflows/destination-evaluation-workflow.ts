@@ -9,7 +9,6 @@ import { initDatabase } from '@repo/data-ops/database';
 export class DestinationEvaluationWorkflow extends WorkflowEntrypoint<Env, DestinationStatusEvaluationParams> {
 
 	async run(event: Readonly<WorkflowEvent<DestinationStatusEvaluationParams>>, step: WorkflowStep) {
-
 		initDatabase(this.env.DB);
 
 		const collectedData = await step.do("Collect rendered destination page data", async () => {
@@ -34,5 +33,13 @@ export class DestinationEvaluationWorkflow extends WorkflowEntrypoint<Env, Desti
 				destinationUrl: event.payload.destinationUrl,
 			});
 		});
+
+		await step.do('Backup destination HTML in R2', async () => {
+			const accountId = event.payload.accountId;
+			const r2PathHtml = `evaluations/${accountId}/html/${evaluationId}`;
+			const r2PathBodyText = `evaluations/${accountId}/body-text/${evaluationId}`;
+			await this.env.BUCKET.put(r2PathHtml, collectedData.html)
+			await this.env.BUCKET.put(r2PathBodyText, collectedData.bodyText)
+		})
 	}
 }
