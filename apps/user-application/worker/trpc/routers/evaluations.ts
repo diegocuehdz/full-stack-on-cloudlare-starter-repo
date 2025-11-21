@@ -8,7 +8,7 @@ import {
 import { t } from "@/worker/trpc/trpc-instance";
 
 export const evaluationsTrpcRoutes = t.router({
-  problematicDestinations: t.procedure.query(async ({ ctx }) => {
+  problematicDestinations: t.procedure.query(async ({ }) => {
     return getNotAvailableEvaluations('testAccountId'); // ctx.userInfo.userId
   }),
   recentEvaluations: t.procedure
@@ -19,7 +19,7 @@ export const evaluationsTrpcRoutes = t.router({
         })
         .optional(),
     )
-    .query(async ({ ctx }) => {
+    .query(async ({ }) => {
       //ctx.userInfo.userId;
       const evaluations = await getEvaluations('testAccountId');
 
