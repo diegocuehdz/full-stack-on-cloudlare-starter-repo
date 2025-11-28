@@ -3,9 +3,19 @@ import { Hono } from 'hono';
 import { cloudflareInfoSchema } from '@repo/data-ops/zod-schema/links';
 import { type LinkClickMessageType } from '@repo/data-ops/zod-schema/queue';
 
-import { getDestinationForCountry, getRoutingDestinations } from '@/helpers/route-ops';
+import { captureLinkClickInBackground, getDestinationForCountry, getRoutingDestinations } from '@/helpers/route-ops';
 
 export const App = new Hono<{ Bindings: Env }>();
+
+
+App.get('/link–click/:accountId', async (c) => {
+	const accountId = c.req.param('accountId');
+
+	const doId = c.env.LINK_CLICK_TRACKER_OBJECT.idFromName(accountId);
+	const stub = c.env.LINK_CLICK_TRACKER_OBJECT.get(doId);
+
+	return await stub.fetch(c.req.raw);
+});
 
 App.get('/:id', async (c) => {
 	const id = c.req.param('id');
@@ -19,7 +29,7 @@ App.get('/:id', async (c) => {
 	const headers = cfHeader.data;
 	const destination = getDestinationForCountry(linkFromDb, headers.country)
 
-	const queueCall = c.env.QUEUE.send({
+	const queueMessage = {
 		type: "LINK_CLICK",
 		data: {
 			id: id,
@@ -30,8 +40,9 @@ App.get('/:id', async (c) => {
 			longitude: headers.longitude,
 			timestamp: new Date().toISOString(),
 		}
-	} satisfies LinkClickMessageType)
-	c.executionCtx.waitUntil(queueCall);
+	} satisfies LinkClickMessageType
+	c.executionCtx.waitUntil(captureLinkClickInBackground(c.env, queueMessage));
 
 	return c.redirect(destination);
 })
+
