@@ -30,6 +30,20 @@
           "remote": true
         }
       ]
+    },
+    "prod": {
+      "d1_databases": [
+          {
+            "binding": "DB",
+            "database_id": "d252f482-76a8-4f21-a0ea-5dbe17eec2f0"
+          }
+      ],
+      "services": [
+        {
+          "binding": "BACKEND_SERVICE",
+          "service": "data-service-prod"
+        }
+      ]
     }
   }
 }
