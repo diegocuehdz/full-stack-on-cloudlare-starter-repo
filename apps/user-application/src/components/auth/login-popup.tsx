@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { siGoogle } from "simple-icons";
+
 import {
   Dialog,
   DialogContent,
@@ -7,26 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { siGoogle } from "simple-icons";
 
-import { useState } from "react";
-
-// Mock authClient with dummy data
-const authClient = {
-  signIn: {
-    social: async ({
-      provider,
-      callbackURL,
-    }: {
-      provider: string;
-      callbackURL: string;
-    }) => {
-      // Simulate async operation
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Fake Action", provider, callbackURL);
-    },
-  },
-};
+import { authClient } from "./client";
 
 interface LoginPopupProps {
   children: React.ReactNode;
