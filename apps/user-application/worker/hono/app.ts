@@ -33,6 +33,7 @@ const getAuthInstance = (env: Env) => {
                 }
             ]
         }
+        env.APP_SECRET,
     )
 }
 
