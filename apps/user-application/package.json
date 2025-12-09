@@ -10,6 +10,7 @@
     "serve": "vite preview",
     "test": "vitest run",
     "cf-typegen": "wrangler types --env-interface Env --env stage",
+    "stripe:create-test-webhook": "stripe listen --forward-to localhost:3000/api/auth/stripe/webhook",
     "deploy:stage": " npm run build && wrangler deploy",
     "deploy:prod": " npm run build:prod && wrangler deploy"
   },
