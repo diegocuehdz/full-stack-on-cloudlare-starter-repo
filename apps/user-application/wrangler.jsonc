@@ -18,6 +18,11 @@
   },
   "env": {
     "stage": {
+      "vars": {
+        "STRIPE_PRODUCT_BASIC": "price_1ScJU1ATx9bkC2ZPXEJy3Xc0",
+        "STRIPE_PRODUCT_PRO": "price_1ScJWyATx9bkC2ZPGPl0eO3K",
+        "STRIPE_PRODUCT_ENTERPRISE": "price_1ScJXpATx9bkC2ZPDFMyfnqv"
+      },
       "d1_databases": [
         {
           "binding": "DB",
