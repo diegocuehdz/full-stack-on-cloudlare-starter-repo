@@ -19,18 +19,18 @@ const getAuthInstance = (env: Env) => {
             stripeWebhookSecret: "",
             stripeApiKey: env.STRIPE_SECRET_KEY,
             plans: [
-                //{
-                //    name: "basic",
-                //    priceId: env.STRIPE_PRODUCT_BASIC
-                //},
-                //{
-                //    name: "pro",
-                //    priceId: env.STRIPE_PRODUCT_PRO
-                //},
-                //{
-                //    name: "enterprise",
-                //    priceId: env.STRIPE_PRODUCT_ENTERPRISE
-                //}
+                {
+                    name: "basic",
+                    priceId: env.STRIPE_PRODUCT_BASIC
+                },
+                {
+                    name: "pro",
+                    priceId: env.STRIPE_PRODUCT_PRO
+                },
+                {
+                    name: "enterprise",
+                    priceId: env.STRIPE_PRODUCT_ENTERPRISE
+                }
             ]
         }
     )

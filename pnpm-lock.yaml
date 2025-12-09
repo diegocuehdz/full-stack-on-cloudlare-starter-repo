@@ -293,8 +293,8 @@ importers:
         specifier: ^5.1.5
         version: 5.1.5
       stripe:
-        specifier: 18.0.0
-        version: 18.0.0
+        specifier: 18.5.0
+        version: 18.5.0(@types/node@22.15.33)
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
@@ -3916,10 +3916,6 @@ packages:
 
   strip-literal@3.0.0:
     resolution: {integrity: sha512-TcccoMhJOM3OebGhSBEmp3UZ2SfDMZUEBdRA/9ynfLi8yYajyWX3JiXArcJt4Umh4vISpspkQIY8ZZoCqjbviA==}
-
-  stripe@18.0.0:
-    resolution: {integrity: sha512-3Fs33IzKUby//9kCkCa1uRpinAoTvj6rJgQ2jrBEysoxEvfsclvXdna1amyEYbA2EKkjynuB4+L/kleCCaWTpA==}
-    engines: {node: '>=12.*'}
 
   stripe@18.5.0:
     resolution: {integrity: sha512-Hp+wFiEQtCB0LlNgcFh5uVyKznpDjzyUZ+CNVEf+I3fhlYvh7rZruIg+jOwzJRCpy0ZTPMjlzm7J2/M2N6d+DA==}
@@ -7794,11 +7790,6 @@ snapshots:
   strip-literal@3.0.0:
     dependencies:
       js-tokens: 9.0.1
-
-  stripe@18.0.0:
-    dependencies:
-      '@types/node': 22.15.33
-      qs: 6.14.0
 
   stripe@18.5.0(@types/node@22.15.33):
     dependencies:
