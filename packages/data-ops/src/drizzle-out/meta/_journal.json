@@ -15,6 +15,13 @@
       "when": 1765255976427,
       "tag": "0001_common_dagger",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1765256237016,
+      "tag": "0002_early_radioactive_man",
+      "breakpoints": true
     }
   ]
 }

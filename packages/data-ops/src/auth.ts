@@ -43,10 +43,10 @@ export function createBetterAuth(
                     stripeConfig?.stripeWebhookSecret ??
                     process.env.STRIPE_WEBHOOK_SECRET!,
                 createCustomerOnSignUp: true,
-                //subscription: {
-                //    enabled: true,
-                //    plans: stripeConfig?.plans ?? [],
-                //},
+                subscription: {
+                    enabled: true,
+                    plans: stripeConfig?.plans ?? [],
+                },
             })
         ]
     });
