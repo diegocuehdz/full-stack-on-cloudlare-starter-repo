@@ -1,5 +1,16 @@
 # user-application
 
+## 0.2.0
+
+### Minor Changes
+
+- 2bdc29b: fix(ci): remove custom commands in favor of wrangler ones
+
+### Patch Changes
+
+- Updated dependencies [2bdc29b]
+  - @repo/data-ops@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
