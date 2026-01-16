@@ -1,5 +1,11 @@
 # @repo/data-ops
 
+## 0.3.0
+
+### Minor Changes
+
+- fcc7b8b: fix(ci): add accountId to action
+
 ## 0.2.0
 
 ### Minor Changes

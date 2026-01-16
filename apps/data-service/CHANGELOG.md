@@ -1,5 +1,16 @@
 # data-service
 
+## 0.3.0
+
+### Minor Changes
+
+- fcc7b8b: fix(ci): add accountId to action
+
+### Patch Changes
+
+- Updated dependencies [fcc7b8b]
+  - @repo/data-ops@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
