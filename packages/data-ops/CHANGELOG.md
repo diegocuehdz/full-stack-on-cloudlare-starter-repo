@@ -1,5 +1,11 @@
 # @repo/data-ops
 
+## 0.4.0
+
+### Minor Changes
+
+- 3285def: feat(ci): execute commands on root for deployment to prod
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # data-service
 
+## 0.4.0
+
+### Minor Changes
+
+- 3285def: feat(ci): execute commands on root for deployment to prod
+
+### Patch Changes
+
+- Updated dependencies [3285def]
+  - @repo/data-ops@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes
