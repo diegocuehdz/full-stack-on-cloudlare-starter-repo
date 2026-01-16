@@ -4,8 +4,7 @@
   "commit": false,
   "fixed": [
     [
-      "apps/*",
-      "packages/*"
+      "*"
     ]
   ],
   "linked": [],
