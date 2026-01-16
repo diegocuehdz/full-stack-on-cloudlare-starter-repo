@@ -9,7 +9,9 @@
     "deploy:frontend:stage": "pnpm i && pnpm run build-package && pnpm --filter user-application run deploy:stage",
     "deploy:frontend:prod": "pnpm i && pnpm run build-package && pnpm --filter user-application run deploy:prod",
     "deploy:data-service:stage": "pnpm i && pnpm run build-package && pnpm --filter data-service run deploy:stage",
-    "deploy:data-service:prod": "pnpm i && pnpm run build-package && pnpm --filter data-service run deploy:prod"
+    "deploy:data-service:prod": "pnpm i && pnpm run build-package && pnpm --filter data-service run deploy:prod",
+    "changeset:add": "changeset add",
+    "changeset:version": "changeset version"
   },
   "keywords": [],
   "author": "",
