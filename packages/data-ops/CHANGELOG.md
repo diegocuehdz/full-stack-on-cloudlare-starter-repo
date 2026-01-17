@@ -1,5 +1,11 @@
 # @repo/data-ops
 
+## 0.5.0
+
+### Minor Changes
+
+- 2a32701: fix(ci): rollback command for wrangler one
+
 ## 0.4.0
 
 ### Minor Changes

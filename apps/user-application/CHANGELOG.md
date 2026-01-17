@@ -1,5 +1,16 @@
 # user-application
 
+## 0.5.0
+
+### Minor Changes
+
+- 2a32701: fix(ci): rollback command for wrangler one
+
+### Patch Changes
+
+- Updated dependencies [2a32701]
+  - @repo/data-ops@0.5.0
+
 ## 0.4.0
 
 ### Minor Changes
