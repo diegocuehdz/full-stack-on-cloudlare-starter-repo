@@ -1,5 +1,11 @@
 # @repo/data-ops
 
+## 0.6.0
+
+### Minor Changes
+
+- 8db4c94: feat(ci): add gh release and root changelog
+
 ## 0.5.0
 
 ### Minor Changes
