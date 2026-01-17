@@ -106,11 +106,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      #- name: Build shared package
-      #  run: pnpm build-package
+      - name: Build shared package
+        run: pnpm build-package
 
-      #- name: Build frontend for production
-      #  run: pnpm --filter user-application run build:prod
+      - name: Build frontend for production
+        run: pnpm --filter user-application run build:prod
 
       - name: Deploy frontend to Cloudflare Workers
         id: deploy
@@ -118,8 +118,8 @@ jobs:
         with:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          #workingDirectory: apps/user-application
-          command: pnpm run deploy:frontend:prod
+          workingDirectory: apps/user-application
+          command: deploy
           packageManager: pnpm
 
   deploy-backend:
@@ -156,8 +156,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      #- name: Build shared package
-      #  run: pnpm build-package
+      - name: Build shared package
+        run: pnpm build-package
 
       - name: Deploy backend to Cloudflare Workers
         id: deploy
@@ -165,8 +165,8 @@ jobs:
         with:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          #workingDirectory: apps/data-service
-          command: pnpm run deploy:data-service:prod
+          workingDirectory: apps/data-service
+          command: deploy --env prod
           packageManager: pnpm
 
   summary:
