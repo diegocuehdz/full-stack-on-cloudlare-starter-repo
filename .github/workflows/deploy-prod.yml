@@ -31,6 +31,8 @@ jobs:
     if: ${{ !inputs.skip_version_bump }}
     permissions:
       contents: write
+    outputs:
+      bump_commit_sha: ${{ steps.commit.outputs.commit_sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,6 +56,9 @@ jobs:
       - name: Run changeset version
         run: pnpm changeset:version
 
+      - name: Sync root package version
+        run: node .github/scripts/sync-root-version.js
+
       - name: Check for changes
         id: changes
         run: |
@@ -64,6 +69,7 @@ jobs:
           fi
 
       - name: Commit and push version changes
+        id: commit
         if: steps.changes.outputs.has_changes == 'true'
         run: |
           git config user.name "github-actions[bot]"
@@ -71,6 +77,7 @@ jobs:
           git add .
           git commit -m "chore(release): bump versions and update changelog [skip ci]"
           git push
+          echo "commit_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
   deploy-frontend:
     name: Deploy Frontend (user-application)
@@ -169,10 +176,77 @@ jobs:
           command: deploy --env prod
           packageManager: pnpm
 
+  create-release:
+    name: Create Git Tag & GitHub Release
+    runs-on: ubuntu-latest
+    needs: [version-bump, deploy-frontend, deploy-backend]
+    if: |
+      !inputs.skip_version_bump &&
+      needs.deploy-frontend.result == 'success' &&
+      needs.deploy-backend.result == 'success'
+    permissions:
+      contents: write
+    outputs:
+      release_tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest changes
+        run: git pull origin ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Get version from root package.json
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes from changelogs
+        run: node .github/scripts/aggregate-changelogs.js
+
+      - name: Prepend deployment info to release notes
+        run: |
+          {
+            echo "## 🚀 Production Deployment"
+            echo ""
+            echo "**Commit:** ${{ needs.version-bump.outputs.bump_commit_sha }}"
+            echo ""
+            echo "### Deployment URLs"
+            echo "- **Frontend:** ${{ needs.deploy-frontend.outputs.deployment-url }}"
+            echo "- **Backend:** ${{ needs.deploy-backend.outputs.deployment-url }}"
+            echo ""
+            echo "---"
+            echo ""
+            cat .github/release-notes.md
+          } > .github/final-release-notes.md
+
+      - name: Create and push tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a ${{ steps.version.outputs.tag }} -m "Release ${{ steps.version.outputs.tag }}"
+          git push origin ${{ steps.version.outputs.tag }}
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create ${{ steps.version.outputs.tag }} \
+            --title "${{ steps.version.outputs.tag }}" \
+            --notes-file .github/final-release-notes.md
+
   summary:
     name: Deployment Summary
     runs-on: ubuntu-latest
-    needs: [version-bump, deploy-frontend, deploy-backend]
+    needs: [version-bump, deploy-frontend, deploy-backend, create-release]
     if: always()
     steps:
       - name: Summary
@@ -184,6 +258,7 @@ jobs:
           echo "| Version Bump | ${{ needs.version-bump.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Frontend Deploy | ${{ needs.deploy-frontend.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Backend Deploy | ${{ needs.deploy-backend.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Create Release | ${{ needs.create-release.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Deployment URLs" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -192,4 +267,10 @@ jobs:
           fi
           if [ -n "${{ needs.deploy-backend.outputs.deployment-url }}" ]; then
             echo "- **Backend:** ${{ needs.deploy-backend.outputs.deployment-url }}" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -n "${{ needs.create-release.outputs.release_tag }}" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🎉 Release Created" >> $GITHUB_STEP_SUMMARY
+            echo "**Tag:** ${{ needs.create-release.outputs.release_tag }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Commit:** ${{ needs.version-bump.outputs.bump_commit_sha }}" >> $GITHUB_STEP_SUMMARY
           fi
