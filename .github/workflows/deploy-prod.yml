@@ -67,6 +67,9 @@ jobs:
             --skip-deployment-info \
             --version=v$VERSION
 
+      - name: Remove temporary release notes file
+        run: rm -f .github/release-notes.md
+
       - name: Check for changes
         id: changes
         run: |
