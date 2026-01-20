@@ -1,5 +1,11 @@
 # @repo/data-ops
 
+## 0.8.0
+
+### Minor Changes
+
+- e19418e: fix(ci): compact bump and changelog in one commit
+
 ## 0.7.0
 
 ### Minor Changes
