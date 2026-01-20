@@ -227,8 +227,9 @@ jobs:
 
       - name: Prepend deployment info to release notes (for GitHub release)
         run: |
+          TIMESTAMP=$(date -u "+%B %d, %Y at %H:%M UTC")
           {
-            echo "## 🚀 Production Deployment"
+            echo "## 🚀 v${{ steps.version.outputs.version }} deployed to prod on $TIMESTAMP"
             echo ""
             echo "**Commit:** ${{ needs.version-bump.outputs.bump_commit_sha }}"
             echo ""
