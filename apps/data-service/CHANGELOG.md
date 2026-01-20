@@ -1,5 +1,13 @@
 # data-service
 
+## 0.10.1
+
+### Patch Changes
+
+- 51bbb35: fix(ci): bump bun action to latest
+- Updated dependencies [51bbb35]
+  - @repo/data-ops@0.10.1
+
 ## 0.10.0
 
 ### Minor Changes

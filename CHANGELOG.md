@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.10.1
+
+
+## 📦 user-application
+
+### Patch Changes
+
+- 51bbb35: fix(ci): bump bun action to latest
+- Updated dependencies [51bbb35]
+  - @repo/data-ops@0.10.1
+
+---
+
+## 🔧 data-service
+
+### Patch Changes
+
+- 51bbb35: fix(ci): bump bun action to latest
+- Updated dependencies [51bbb35]
+  - @repo/data-ops@0.10.1
+
+---
+
+## 📚 @repo/data-ops
+
+### Patch Changes
+
+- 51bbb35: fix(ci): bump bun action to latest
+
+---
+
 ## v0.10.0
 
 

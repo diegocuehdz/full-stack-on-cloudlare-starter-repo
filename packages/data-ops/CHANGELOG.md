@@ -1,5 +1,11 @@
 # @repo/data-ops
 
+## 0.10.1
+
+### Patch Changes
+
+- 51bbb35: fix(ci): bump bun action to latest
+
 ## 0.10.0
 
 ### Minor Changes

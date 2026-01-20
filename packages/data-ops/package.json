@@ -1,6 +1,6 @@
 {
   "name": "@repo/data-ops",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Package for helper methods to interface with data",
   "scripts": {
     "build": "tsc -p tsconfig.json --outDir ./dist && tsc-alias",
