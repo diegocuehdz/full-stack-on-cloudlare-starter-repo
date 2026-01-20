@@ -1,5 +1,16 @@
 # data-service
 
+## 0.7.0
+
+### Minor Changes
+
+- 71ca765: feat(ci): add root CHANGELOG.md generation
+
+### Patch Changes
+
+- Updated dependencies [71ca765]
+  - @repo/data-ops@0.7.0
+
 ## 0.6.0
 
 ### Minor Changes

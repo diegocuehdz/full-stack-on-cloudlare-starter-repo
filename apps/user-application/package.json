@@ -1,6 +1,6 @@
 {
   "name": "user-application",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "User application via tanstack and wrangler through workers",
   "private": true,
   "type": "module",

@@ -1,5 +1,11 @@
 # @repo/data-ops
 
+## 0.7.0
+
+### Minor Changes
+
+- 71ca765: feat(ci): add root CHANGELOG.md generation
+
 ## 0.6.0
 
 ### Minor Changes
