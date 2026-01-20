@@ -10,10 +10,8 @@ const packages = [
 const args = process.argv.slice(2);
 const options = {
   updateRootChangelog: args.includes('--update-root-changelog'),
+  skipDeploymentInfo: args.includes('--skip-deployment-info'),
   version: args.find(arg => arg.startsWith('--version='))?.split('=')[1],
-  commitSha: args.find(arg => arg.startsWith('--commit='))?.split('=')[1],
-  frontendUrl: args.find(arg => arg.startsWith('--frontend-url='))?.split('=')[1],
-  backendUrl: args.find(arg => arg.startsWith('--backend-url='))?.split('=')[1],
 };
 
 function extractLatestChangelog(filePath) {
@@ -72,27 +70,7 @@ function updateRootChangelog(changelogContent, options) {
   // Build the new version entry
   let newEntry = `## ${version}\n\n`;
   
-  // Add deployment info if provided
-  if (options.commitSha || options.frontendUrl || options.backendUrl) {
-    newEntry += `### 🚀 Production Deployment\n\n`;
-    
-    if (options.commitSha) {
-      newEntry += `**Commit:** ${options.commitSha}\n\n`;
-    }
-    
-    if (options.frontendUrl || options.backendUrl) {
-      newEntry += `#### Deployment URLs\n`;
-      if (options.frontendUrl) {
-        newEntry += `- **Frontend:** ${options.frontendUrl}\n`;
-      }
-      if (options.backendUrl) {
-        newEntry += `- **Backend:** ${options.backendUrl}\n`;
-      }
-      newEntry += `\n---\n\n`;
-    }
-  }
-  
-  // Add the aggregated changelog content
+  // Add the aggregated changelog content directly (no deployment info)
   newEntry += changelogContent;
   newEntry += `\n`;
   

@@ -59,6 +59,14 @@ jobs:
       - name: Sync root package version
         run: node .github/scripts/sync-root-version.js
 
+      - name: Generate root CHANGELOG
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          node .github/scripts/aggregate-changelogs.js \
+            --update-root-changelog \
+            --skip-deployment-info \
+            --version=v$VERSION
+
       - name: Check for changes
         id: changes
         run: |
@@ -75,7 +83,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "chore(release): bump versions and update changelog [skip ci]"
+          git commit -m "chore(release): bump versions and update changelogs [skip ci]"
           git push
           echo "commit_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
@@ -209,14 +217,8 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Generate release notes and update root CHANGELOG
-        run: |
-          node .github/scripts/aggregate-changelogs.js \
-            --update-root-changelog \
-            --version=${{ steps.version.outputs.tag }} \
-            --commit=${{ needs.version-bump.outputs.bump_commit_sha }} \
-            --frontend-url=${{ needs.deploy-frontend.outputs.deployment-url }} \
-            --backend-url=${{ needs.deploy-backend.outputs.deployment-url }}
+      - name: Generate release notes (for GitHub release only)
+        run: node .github/scripts/aggregate-changelogs.js
 
       - name: Prepend deployment info to release notes (for GitHub release)
         run: |
@@ -233,21 +235,6 @@ jobs:
             echo ""
             cat .github/release-notes.md
           } > .github/final-release-notes.md
-
-      - name: Commit and push root CHANGELOG
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md
-          if git diff --staged --quiet; then
-            echo "No changes to CHANGELOG.md"
-          else
-            git commit -m "chore(release): update CHANGELOG for ${{ steps.version.outputs.tag }} [skip ci]"
-            git push
-          fi
-
-      - name: Pull latest changes (after CHANGELOG commit)
-        run: git pull origin ${{ github.ref_name }}
 
       - name: Create and push tag
         run: |
