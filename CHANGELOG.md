@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.8.1
+
+
+## 📦 user-application
+
+### Patch Changes
+
+- 67b98b9: refactor(ci): remove temp file release-notes.md before commit
+- Updated dependencies [67b98b9]
+  - @repo/data-ops@0.8.1
+
+---
+
+## 🔧 data-service
+
+### Patch Changes
+
+- 67b98b9: refactor(ci): remove temp file release-notes.md before commit
+- Updated dependencies [67b98b9]
+  - @repo/data-ops@0.8.1
+
+---
+
+## 📚 @repo/data-ops
+
+### Patch Changes
+
+- 67b98b9: refactor(ci): remove temp file release-notes.md before commit
+
+---
+
 ## v0.8.0
 
 

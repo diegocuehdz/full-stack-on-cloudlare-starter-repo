@@ -1,5 +1,11 @@
 # @repo/data-ops
 
+## 0.8.1
+
+### Patch Changes
+
+- 67b98b9: refactor(ci): remove temp file release-notes.md before commit
+
 ## 0.8.0
 
 ### Minor Changes
