@@ -1,6 +1,16 @@
-const fs = require('fs');
+interface Package {
+  name: string;
+  path: string;
+  icon: string;
+}
 
-const packages = [
+interface Options {
+  updateRootChangelog: boolean;
+  skipDeploymentInfo: boolean;
+  version?: string;
+}
+
+const packages: Package[] = [
   { name: 'user-application', path: './apps/user-application/CHANGELOG.md', icon: '📦' },
   { name: 'data-service', path: './apps/data-service/CHANGELOG.md', icon: '🔧' },
   { name: '@repo/data-ops', path: './packages/data-ops/CHANGELOG.md', icon: '📚' }
@@ -8,22 +18,25 @@ const packages = [
 
 // Parse command line arguments
 const args = process.argv.slice(2);
-const options = {
+const options: Options = {
   updateRootChangelog: args.includes('--update-root-changelog'),
   skipDeploymentInfo: args.includes('--skip-deployment-info'),
   version: args.find(arg => arg.startsWith('--version='))?.split('=')[1],
 };
 
-function extractLatestChangelog(filePath) {
-  if (!fs.existsSync(filePath)) {
+async function extractLatestChangelog(filePath: string): Promise<string | null> {
+  const file = Bun.file(filePath);
+  const exists = await file.exists();
+  
+  if (!exists) {
     return null;
   }
   
-  const content = fs.readFileSync(filePath, 'utf8');
+  const content = await file.text();
   const lines = content.split('\n');
   
   let inVersion = false;
-  let result = [];
+  const result: string[] = [];
   
   for (const line of lines) {
     if (line.match(/^## [0-9]/)) {
@@ -43,14 +56,14 @@ function extractLatestChangelog(filePath) {
 let releaseNotes = '';
 
 for (const pkg of packages) {
-  const changes = extractLatestChangelog(pkg.path);
+  const changes = await extractLatestChangelog(pkg.path);
   if (changes) {
     releaseNotes += `\n## ${pkg.icon} ${pkg.name}\n\n${changes}\n\n---\n`;
   }
 }
 
 // Always write release notes for GitHub release
-fs.writeFileSync('.github/release-notes.md', releaseNotes);
+await Bun.write('.github/release-notes.md', releaseNotes);
 console.log('✅ Release notes aggregated from all CHANGELOGs');
 
 // Optionally update root CHANGELOG.md
@@ -60,12 +73,12 @@ if (options.updateRootChangelog) {
     process.exit(1);
   }
   
-  updateRootChangelog(releaseNotes, options);
+  await updateRootChangelog(releaseNotes, options);
 }
 
-function updateRootChangelog(changelogContent, options) {
+async function updateRootChangelog(changelogContent: string, options: Options): Promise<void> {
   const changelogPath = './CHANGELOG.md';
-  const version = options.version;
+  const version = options.version!;
   
   // Build the new version entry
   let newEntry = `## ${version}\n\n`;
@@ -77,15 +90,18 @@ function updateRootChangelog(changelogContent, options) {
   // Read existing CHANGELOG or create new
   let changelog = '';
   
-  if (fs.existsSync(changelogPath)) {
-    const existing = fs.readFileSync(changelogPath, 'utf8');
+  const changelogFile = Bun.file(changelogPath);
+  const exists = await changelogFile.exists();
+  
+  if (exists) {
+    const existing = await changelogFile.text();
     
     // Check if file has the standard header
     if (existing.startsWith('# Changelog')) {
       // Find where to insert (after header, before first version)
       const versionMatch = existing.match(/\n## v?[0-9]/);
       
-      if (versionMatch) {
+      if (versionMatch && versionMatch.index !== undefined) {
         // Insert before first version
         const insertIndex = versionMatch.index + 1; // +1 to keep the newline
         changelog = existing.slice(0, insertIndex) + newEntry + existing.slice(insertIndex);
@@ -104,6 +120,8 @@ function updateRootChangelog(changelogContent, options) {
   }
   
   // Write back
-  fs.writeFileSync(changelogPath, changelog);
+  await Bun.write(changelogPath, changelog);
   console.log(`✅ Updated root CHANGELOG.md with ${version}`);
 }
+
+export {};

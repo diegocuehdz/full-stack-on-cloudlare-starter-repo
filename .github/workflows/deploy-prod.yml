@@ -50,6 +50,11 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: "pnpm"
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version-file: .bun-version
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -57,14 +62,14 @@ jobs:
         run: pnpm changeset:version
 
       - name: Sync root package version
-        run: node .github/scripts/sync-root-version.js
+        run: bun .github/scripts/sync-root-version.ts
 
       - name: Generate root CHANGELOG
         id: version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION=$(bun --print 'JSON.parse(await Bun.file("./package.json").text()).version')
           echo "bumped_version=$VERSION" >> $GITHUB_OUTPUT
-          node .github/scripts/aggregate-changelogs.js \
+          bun .github/scripts/aggregate-changelogs.ts \
             --update-root-changelog \
             --skip-deployment-info \
             --version=v$VERSION
@@ -210,20 +215,20 @@ jobs:
       - name: Pull latest changes
         run: git pull origin ${{ github.ref_name }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          bun-version-file: .bun-version
 
       - name: Get version from root package.json
         id: version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION=$(bun --print 'JSON.parse(await Bun.file("./package.json").text()).version')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
 
       - name: Generate release notes (for GitHub release only)
-        run: node .github/scripts/aggregate-changelogs.js
+        run: bun .github/scripts/aggregate-changelogs.ts
 
       - name: Prepend deployment info to release notes (for GitHub release)
         run: |
