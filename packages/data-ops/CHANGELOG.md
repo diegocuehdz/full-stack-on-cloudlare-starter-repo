@@ -1,5 +1,15 @@
 # @repo/data-ops
 
+## 0.9.0
+
+### Minor Changes
+
+- 8209ae2: feat(ci): add timestamp in release title
+
+### Patch Changes
+
+- ea75d38: feat(ci): add version in commit message
+
 ## 0.8.1
 
 ### Patch Changes

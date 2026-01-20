@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.9.0
+
+
+## 📦 user-application
+
+### Minor Changes
+
+- 8209ae2: feat(ci): add timestamp in release title
+
+### Patch Changes
+
+- ea75d38: feat(ci): add version in commit message
+- Updated dependencies [8209ae2]
+- Updated dependencies [ea75d38]
+  - @repo/data-ops@0.9.0
+
+---
+
+## 🔧 data-service
+
+### Minor Changes
+
+- 8209ae2: feat(ci): add timestamp in release title
+
+### Patch Changes
+
+- ea75d38: feat(ci): add version in commit message
+- Updated dependencies [8209ae2]
+- Updated dependencies [ea75d38]
+  - @repo/data-ops@0.9.0
+
+---
+
+## 📚 @repo/data-ops
+
+### Minor Changes
+
+- 8209ae2: feat(ci): add timestamp in release title
+
+### Patch Changes
+
+- ea75d38: feat(ci): add version in commit message
+
+---
+
 ## v0.8.1
 
 

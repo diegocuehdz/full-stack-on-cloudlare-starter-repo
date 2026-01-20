@@ -1,5 +1,18 @@
 # data-service
 
+## 0.9.0
+
+### Minor Changes
+
+- 8209ae2: feat(ci): add timestamp in release title
+
+### Patch Changes
+
+- ea75d38: feat(ci): add version in commit message
+- Updated dependencies [8209ae2]
+- Updated dependencies [ea75d38]
+  - @repo/data-ops@0.9.0
+
 ## 0.8.1
 
 ### Patch Changes
