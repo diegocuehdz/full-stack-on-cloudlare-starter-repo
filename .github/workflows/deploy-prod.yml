@@ -209,10 +209,16 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Generate release notes from changelogs
-        run: node .github/scripts/aggregate-changelogs.js
+      - name: Generate release notes and update root CHANGELOG
+        run: |
+          node .github/scripts/aggregate-changelogs.js \
+            --update-root-changelog \
+            --version=${{ steps.version.outputs.tag }} \
+            --commit=${{ needs.version-bump.outputs.bump_commit_sha }} \
+            --frontend-url=${{ needs.deploy-frontend.outputs.deployment-url }} \
+            --backend-url=${{ needs.deploy-backend.outputs.deployment-url }}
 
-      - name: Prepend deployment info to release notes
+      - name: Prepend deployment info to release notes (for GitHub release)
         run: |
           {
             echo "## 🚀 Production Deployment"
@@ -227,6 +233,21 @@ jobs:
             echo ""
             cat .github/release-notes.md
           } > .github/final-release-notes.md
+
+      - name: Commit and push root CHANGELOG
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          if git diff --staged --quiet; then
+            echo "No changes to CHANGELOG.md"
+          else
+            git commit -m "chore(release): update CHANGELOG for ${{ steps.version.outputs.tag }} [skip ci]"
+            git push
+          fi
+
+      - name: Pull latest changes (after CHANGELOG commit)
+        run: git pull origin ${{ github.ref_name }}
 
       - name: Create and push tag
         run: |
