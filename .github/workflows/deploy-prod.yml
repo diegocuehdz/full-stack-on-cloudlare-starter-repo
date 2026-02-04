@@ -29,6 +29,8 @@ jobs:
     name: Version Bump & Changelog
     runs-on: ubuntu-latest
     if: ${{ !inputs.skip_version_bump }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
     outputs:
