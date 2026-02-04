@@ -1,5 +1,13 @@
 # @repo/data-ops
 
+## 0.10.2
+
+### Patch Changes
+
+- [`3543df1`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/3543df19596ab387e68129f7fca48ae32f2b3dbd) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - fix(ci): add GITHUB_TOKEN on action
+
+- [`7d392ed`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/7d392edfa915d2feb4feb9f71f3bdf3cbcc08514) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - feat(ci): add changelog-github generation
+
 ## 0.10.1
 
 ### Patch Changes

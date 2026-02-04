@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.10.2
+
+
+## 📦 user-application
+
+### Patch Changes
+
+- [`3543df1`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/3543df19596ab387e68129f7fca48ae32f2b3dbd) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - fix(ci): add GITHUB_TOKEN on action
+
+- [`7d392ed`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/7d392edfa915d2feb4feb9f71f3bdf3cbcc08514) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - feat(ci): add changelog-github generation
+
+- Updated dependencies [[`3543df1`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/3543df19596ab387e68129f7fca48ae32f2b3dbd), [`7d392ed`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/7d392edfa915d2feb4feb9f71f3bdf3cbcc08514)]:
+  - @repo/data-ops@0.10.2
+
+---
+
+## 🔧 data-service
+
+### Patch Changes
+
+- [`3543df1`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/3543df19596ab387e68129f7fca48ae32f2b3dbd) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - fix(ci): add GITHUB_TOKEN on action
+
+- [`7d392ed`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/7d392edfa915d2feb4feb9f71f3bdf3cbcc08514) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - feat(ci): add changelog-github generation
+
+- Updated dependencies [[`3543df1`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/3543df19596ab387e68129f7fca48ae32f2b3dbd), [`7d392ed`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/7d392edfa915d2feb4feb9f71f3bdf3cbcc08514)]:
+  - @repo/data-ops@0.10.2
+
+---
+
+## 📚 @repo/data-ops
+
+### Patch Changes
+
+- [`3543df1`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/3543df19596ab387e68129f7fca48ae32f2b3dbd) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - fix(ci): add GITHUB_TOKEN on action
+
+- [`7d392ed`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/7d392edfa915d2feb4feb9f71f3bdf3cbcc08514) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - feat(ci): add changelog-github generation
+
+---
+
 ## v0.10.1
 
 
