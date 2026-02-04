@@ -1,5 +1,14 @@
 # data-service
 
+## 0.10.3
+
+### Patch Changes
+
+- [`04cbba5`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/04cbba5e2c9be2e85cc5c11e12636af56c585065) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - docs(config): remove comment for testing
+
+- Updated dependencies [[`04cbba5`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/04cbba5e2c9be2e85cc5c11e12636af56c585065)]:
+  - @repo/data-ops@0.10.3
+
 ## 0.10.2
 
 ### Patch Changes

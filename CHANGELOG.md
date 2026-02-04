@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.10.3
+
+
+## 📦 user-application
+
+### Patch Changes
+
+- [`04cbba5`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/04cbba5e2c9be2e85cc5c11e12636af56c585065) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - docs(config): remove comment for testing
+
+- Updated dependencies [[`04cbba5`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/04cbba5e2c9be2e85cc5c11e12636af56c585065)]:
+  - @repo/data-ops@0.10.3
+
+---
+
+## 🔧 data-service
+
+### Patch Changes
+
+- [`04cbba5`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/04cbba5e2c9be2e85cc5c11e12636af56c585065) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - docs(config): remove comment for testing
+
+- Updated dependencies [[`04cbba5`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/04cbba5e2c9be2e85cc5c11e12636af56c585065)]:
+  - @repo/data-ops@0.10.3
+
+---
+
+## 📚 @repo/data-ops
+
+### Patch Changes
+
+- [`04cbba5`](https://github.com/diegocuehdz/full-stack-on-cloudlare-starter-repo/commit/04cbba5e2c9be2e85cc5c11e12636af56c585065) Thanks [@diegocuehdz](https://github.com/diegocuehdz)! - docs(config): remove comment for testing
+
+---
+
 ## v0.10.2
 
 
